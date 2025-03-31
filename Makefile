@@ -2,10 +2,11 @@ SRC_DIR = src
 CFG_DIR = config
 OUT_DIR = output
 DEBUG_DIR = debug
+DOCS_DIR = docs
 
 Compiler=arm-none-eabi-gcc
 Core=cortex-m4
-CFlags = -c -mcpu=cortex-m4 -mthumb -std=gnu23  -mfpu=fpv4-sp-d16 -mfloat-abi=hard -g -O0 \
+CFlags = -c -Iinc -Icommon -mcpu=cortex-m4 -mthumb -std=gnu23  -mfpu=fpv4-sp-d16 -mfloat-abi=hard -g -O0 \
 		 -Wall -Wextra -Wpedantic -Werror -Wshadow -Wpointer-arith -Wcast-qual \
 		 -Wcast-align -Wsign-conversion -Wswitch-default -Wswitch-enum \
 		 -Wstrict-prototypes -Wmissing-prototypes -Wconversion -Wredundant-decls \
@@ -35,6 +36,7 @@ startup.o:$(CFG_DIR)/startup.c
 
 $(DEBUG_DIR)/firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o | $(DEBUG_DIR)
 	$(Compiler) $(LDFlags) -o $@ $^
+	arm-none-eabi-objcopy -O binary $(DEBUG_DIR)/firmware.elf $(DEBUG_DIR)/firmware.bin
 
 # all: main.o startup.o gpio_driver.o rcc_driver.o final.elf
 
@@ -54,6 +56,7 @@ $(DEBUG_DIR)/firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o | $(DEBUG_DIR)
 #	$(Compiler) $(LDFlags) -o $@ $^
 
 clean:
+	rmdir /S /Q $(DOCS_DIR) 2>nul || exit 0
 	rmdir /S /Q $(DEBUG_DIR) 2>nul || exit 0
 	rmdir /S /Q $(OUT_DIR) 2>nul || exit 0
 	del /Q *.o *.elf *.map 2>nul || exit 0
