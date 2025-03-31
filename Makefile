@@ -1,3 +1,8 @@
+SRC_DIR = src
+CFG_DIR = config
+OUT_DIR = output
+DEBUG_DIR = debug
+
 Compiler=arm-none-eabi-gcc
 Core=cortex-m4
 CFlags = -c -mcpu=cortex-m4 -mthumb -std=gnu23  -mfpu=fpv4-sp-d16 -mfloat-abi=hard -g -O0 \
@@ -12,22 +17,23 @@ CFlags = -c -mcpu=cortex-m4 -mthumb -std=gnu23  -mfpu=fpv4-sp-d16 -mfloat-abi=ha
          -Wcast-align -Wlogical-op -Waggregate-return -Wfloat-equal \
          -Wpacked -Wno-inline
 
-LDFlags= -mcpu=$(Core) -mthumb -nostdlib -T linkerScript.ld -Wl,-Map=firmware.map
+LDFlags= -mcpu=$(Core) -mthumb -nostdlib -T $(CFG_DIR)/linkerScript.ld -Wl,-Map=$(DEBUG_DIR)/firmware.map
 
-OUT_DIR = output
-
-all: $(OUT_DIR) main.o startup.o firmware.elf
+all: $(OUT_DIR) main.o startup.o $(DEBUG_DIR)/firmware.elf
 
 $(OUT_DIR):
 	mkdir $@
 
-main.o:main.c | $(OUT_DIR)
-	$(Compiler) $(CFlags) main.c -o $(OUT_DIR)/main.o
+$(DEBUG_DIR):
+	mkdir $@
 
-startup.o:startup.c
-	$(Compiler) $(CFlags) startup.c -o $(OUT_DIR)/startup.o
+main.o:$(SRC_DIR)/main.c | $(OUT_DIR)
+	$(Compiler) $(CFlags) $(SRC_DIR)/main.c -o $(OUT_DIR)/main.o
 
-firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o
+startup.o:$(CFG_DIR)/startup.c
+	$(Compiler) $(CFlags) $(CFG_DIR)/startup.c -o $(OUT_DIR)/startup.o
+
+$(DEBUG_DIR)/firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o | $(DEBUG_DIR)
 	$(Compiler) $(LDFlags) -o $@ $^
 
 # all: main.o startup.o gpio_driver.o rcc_driver.o final.elf
