@@ -6,16 +6,16 @@ DEBUG_DIR = debug
 Compiler=arm-none-eabi-gcc
 Core=cortex-m4
 CFlags = -c -mcpu=cortex-m4 -mthumb -std=gnu23  -mfpu=fpv4-sp-d16 -mfloat-abi=hard -g -O0 \
-         -Wall -Wextra -Wpedantic -Werror -Wshadow -Wpointer-arith -Wcast-qual \
-         -Wcast-align -Wsign-conversion -Wswitch-default -Wswitch-enum \
-         -Wstrict-prototypes -Wmissing-prototypes -Wconversion -Wredundant-decls \
-         -Winline -Wundef -Wbad-function-cast -Wfloat-equal -Wlogical-op \
-         -Waggregate-return -Wformat=2 -Wmissing-include-dirs -Wstrict-overflow=5 \
-         -Wunreachable-code -Wunused -Wuninitialized -Wnull-dereference \
-         -Wduplicated-cond -Wno-unused-parameter -pedantic-errors \
-         -Wvla -Wnonnull -Wmisleading-indentation -Wpointer-arith \
-         -Wcast-align -Wlogical-op -Waggregate-return -Wfloat-equal \
-         -Wpacked -Wno-inline
+		 -Wall -Wextra -Wpedantic -Werror -Wshadow -Wpointer-arith -Wcast-qual \
+		 -Wcast-align -Wsign-conversion -Wswitch-default -Wswitch-enum \
+		 -Wstrict-prototypes -Wmissing-prototypes -Wconversion -Wredundant-decls \
+		 -Winline -Wundef -Wbad-function-cast -Wfloat-equal -Wlogical-op \
+		 -Waggregate-return -Wformat=2 -Wmissing-include-dirs -Wstrict-overflow=5 \
+		 -Wunreachable-code -Wunused -Wuninitialized -Wnull-dereference \
+		 -Wduplicated-cond -Wno-unused-parameter -pedantic-errors \
+		 -Wvla -Wnonnull -Wmisleading-indentation -Wpointer-arith \
+		 -Wcast-align -Wlogical-op -Waggregate-return -Wfloat-equal \
+		 -Wpacked -Wno-inline
 
 LDFlags= -mcpu=$(Core) -mthumb -nostdlib -T $(CFG_DIR)/linkerScript.ld -Wl,-Map=$(DEBUG_DIR)/firmware.map
 
@@ -54,6 +54,7 @@ $(DEBUG_DIR)/firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o | $(DEBUG_DIR)
 #	$(Compiler) $(LDFlags) -o $@ $^
 
 clean:
+	rmdir /S /Q $(DEBUG_DIR) 2>nul || exit 0
 	rmdir /S /Q $(OUT_DIR) 2>nul || exit 0
 	del /Q *.o *.elf *.map 2>nul || exit 0
 	 
