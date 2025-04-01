@@ -35,12 +35,6 @@ struct GPIO{
 #define GPIO_BASE_ADDRESS   (AHB2_PERIPHERAL_BASE_ADDRESS + GPIOA_OFFSET)
 
 /**
- * @brief GPIOA structure to access GPIOA registers.
- * 
- */
-#define GPIOA               ((GPIO*)GPIO_BASE_ADDRESS)
-
-/**
  * @brief The MODER register of each GPIO port has 32 bits(2 bits per pin). This value
  * represents that
  * 

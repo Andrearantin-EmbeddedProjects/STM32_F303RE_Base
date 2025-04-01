@@ -1,7 +1,13 @@
 #include "gpio_driver/gpio_driver.h"
 #include "gpio_driver/gpio_internal.h"
 
-void GPIO_Set_Mode(GPIO* GPIO_Port, GPIO_Pin_Number pinNumber, GPIOMode mode) {
+/*
+    Declare it as const here and extern it in header because i wanted the address to stay private
+    in gpio_internal.h but i wanted to expose GPIOA to allow customization
+*/
+const GPIO* GPIOA = ((GPIO*)GPIO_BASE_ADDRESS);
+
+void GPIO_Set_Mode(GPIO* GPIO_Port, GPIOPinNumber pinNumber, GPIOMode mode) {
 
     /*
     Calculates how much i should shift to access the correct pin(each pin has 2 bits)
@@ -19,7 +25,7 @@ void GPIO_Set_Mode(GPIO* GPIO_Port, GPIO_Pin_Number pinNumber, GPIOMode mode) {
     }
 }
 
-void GPIO_Set_PullUp_PullDown(GPIO* GPIO_Port, GPIO_Pin_Number pinNumber, GPIOPupPdown pullMode) {
+void GPIO_Set_PullUp_PullDown(GPIO* GPIO_Port, GPIOPinNumber pinNumber, GPIOPupPdown pullMode) {
 
     /*
     Calculates how much i should shift to access the correct pin(each pin has 2 bits)

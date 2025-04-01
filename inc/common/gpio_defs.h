@@ -65,7 +65,7 @@ typedef enum {
     PIN_N_13,
     PIN_N_14,
     PIN_N_15,
-}GPIO_Pin_Number;
+}GPIOPinNumber;
 
 
 #endif
