@@ -20,7 +20,7 @@ CFlags = -c -Iinc -mcpu=cortex-m4 -mthumb -std=gnu23  -mfpu=fpv4-sp-d16 -mfloat-
 
 LDFlags= -mcpu=$(Core) -mthumb -nostdlib -T $(CFG_DIR)/linkerScript.ld -Wl,-Map=$(DEBUG_DIR)/firmware.map
 
-all: $(OUT_DIR) main.o startup.o gpio_driver.o rcc_driver.o $(DEBUG_DIR)/firmware.elf
+all: $(OUT_DIR) main.o startup.o $(DEBUG_DIR)/firmware.elf
 
 $(OUT_DIR):
 	mkdir $@
@@ -34,15 +34,9 @@ main.o:$(SRC_DIR)/main.c | $(OUT_DIR)
 startup.o:$(CFG_DIR)/startup.c
 	$(Compiler) $(CFlags) $(CFG_DIR)/startup.c -o $(OUT_DIR)/startup.o
 
-	
-gpio_driver.o:$(SRC_DIR)/gpio_driver/gpio_driver.c | $(OUT_DIR)
-	$(Compiler) $(CFlags) $(SRC_DIR)/gpio_driver/gpio_driver.c -o $(OUT_DIR)/gpio_driver.o
-
-rcc_driver.o:$(SRC_DIR)/rcc_driver/rcc_driver.c | $(OUT_DIR)
-	$(Compiler) $(CFlags) $(SRC_DIR)/rcc_driver/rcc_driver.c -o $(OUT_DIR)/rcc_driver.o
 
 
-$(DEBUG_DIR)/firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o $(OUT_DIR)/gpio_driver.o $(OUT_DIR)/rcc_driver.o | $(DEBUG_DIR)
+$(DEBUG_DIR)/firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o | $(DEBUG_DIR)
 	$(Compiler) $(LDFlags) -o $@ $^
 	arm-none-eabi-objcopy -O binary $(DEBUG_DIR)/firmware.elf $(DEBUG_DIR)/firmware.bin
 
