@@ -64,7 +64,8 @@ $(DEBUG_DIR)/firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o $(OUT_DIR)/gpi
 #	$(Compiler) $(LDFlags) -o $@ $^
 
 clean:
-	rmdir /S /Q $(DOCS_DIR) 2>nul || exit 0
+	rmdir /S /Q $(DOCS_DIR)\html 2>nul || exit 0
+	rmdir /S /Q $(DOCS_DIR)\latex 2>nul || exit 0
 	rmdir /S /Q $(DEBUG_DIR) 2>nul || exit 0
 	rmdir /S /Q $(OUT_DIR) 2>nul || exit 0
 	del /Q *.o *.elf *.map 2>nul || exit 0
