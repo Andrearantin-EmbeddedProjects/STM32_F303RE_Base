@@ -16,17 +16,6 @@
 #include "peripheral.h"
 
 /**
- * @brief Status code for any function dealing with GPIO
- * 
- */
-typedef enum {
-    GPIO_OK,
-    GPIO_ERROR_SET_MODE,
-	GPIO_ERROR_SET_PUPDR,
-	GPIO_ERROR_WRITE,
-}GpioStatusCode;
-
-/**
  * @brief Mode that a GPIO pin can have
  * 
  */
