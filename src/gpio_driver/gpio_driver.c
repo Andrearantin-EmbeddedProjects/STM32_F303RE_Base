@@ -1,11 +1,29 @@
 #include "gpio_driver/gpio_driver.h"
 #include "gpio_driver/gpio_internal.h"
+#include <stddef.h>
 
 /*
     Declare it  here and extern it in header because i wanted the address to stay private
     in gpio_internal.h but i wanted to expose GPIOA to allow customization
 */
-GPIO* GPIOA = ((GPIO*)GPIO_BASE_ADDRESS);
+GPIO* GPIOA = NULL;
+
+void GPIO_Init(GPIOPortEnum GPIO_Port_Enum) {
+    switch(GPIO_Port_Enum) {
+        case GPIO_PORT_A:
+            GPIOA = ((GPIO*)GPIO_BASE_ADDRESS);
+            break;
+        case GPIO_PORT_B:
+        case GPIO_PORT_C:
+        case GPIO_PORT_D:
+        case GPIO_PORT_E:
+        case GPIO_PORT_F:
+        case GPIO_PORT_G:
+        case GPIO_PORT_H:
+        default:
+        break;
+    }
+}
 
 void GPIO_Set_Mode(GPIO* GPIO_Port, GPIOPinNumber pinNumber, GPIOMode mode) {
 

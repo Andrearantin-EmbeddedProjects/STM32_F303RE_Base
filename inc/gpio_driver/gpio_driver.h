@@ -59,4 +59,11 @@ uint8_t GPIO_Read_Pin(GPIO* GPIO_Port, GpioPin pin);
  */
 void GPIO_Write_Pin(GPIO* GPIO_Port, GpioPin pin, GPIOState state);
 
+/**
+ * @brief Initializes a GPIO port
+ * 
+ * @param GPIO_Port_Enum Enum of the port to be initialized
+ */
+void GPIO_Init(GPIOPortEnum GPIO_Port);
+
 #endif
