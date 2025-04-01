@@ -6,5 +6,6 @@
 typedef struct GPIO GPIO;
 
 void GPIO_Set_Mode(GPIO* GPIO_Port, GPIO_Pin_Number pinNumber, GPIOMode mode);
+void GPIO_Set_PullUp_PullDown(GPIO* GPIO_Port, GPIO_Pin_Number pinNumber, GPIOPupPdown);
 
 #endif
