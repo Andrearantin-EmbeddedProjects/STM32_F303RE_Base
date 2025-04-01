@@ -1,8 +1,13 @@
 #include "gpio_driver/gpio_driver.h"
 #include "rcc_driver/rcc_driver.h"
-#include "gpio_driver/gpio_internal.h"
 
 int main(void) {
+
+   RCCStatusCode checkError =  System_Clock_Init();
+    if(checkError != RCC_OK) {
+        int a = 0;
+        a++;
+    }
 
     RCC_AHB_Enable(RCC_ENABLE_GPIOA);
 

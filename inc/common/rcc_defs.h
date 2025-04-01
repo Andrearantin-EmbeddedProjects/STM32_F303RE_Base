@@ -18,4 +18,11 @@ typedef enum {
     RCC_ENABLE_GPIOG = RCC_AHB_ENABLE(23),
 }RCCAHBEnable;
 
+typedef enum {
+    RCC_OK = 0,
+    RCC_ERROR_HSI,
+    RCC_ERROR_PLL,
+    RCC_ERROR_SYSCLOCK,
+}RCCStatusCode;
+
 #endif

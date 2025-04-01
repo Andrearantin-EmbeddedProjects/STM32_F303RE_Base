@@ -11,4 +11,6 @@
  */
 void RCC_AHB_Enable(RCCAHBEnable peripheral);
 
+RCCStatusCode System_Clock_Init();
+
 #endif
