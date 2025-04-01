@@ -16,20 +16,43 @@
 #include "peripheral.h"
 
 /**
- * @brief GPIO registers structures. For more info see the reference manual page 240
+ * @brief Status code for any function dealing with GPIO
  * 
  */
-typedef struct {
-    volatile uint32_t MODER; //GPIO MODE REGISTER
-    volatile uint32_t OTYPER; //GPIO OUTPUT TYPE REGISTER
-    volatile uint32_t OSPEEDR; //GPIO OUTPUT SPEED REGISTER
-    volatile uint32_t PUPDR; //GPIO PULL-UP/PULL-DOWN REGISTER
-    volatile uint32_t IDR; //GPIO INPUT DATA REGISTER
-    volatile uint32_t ODR; //GPIO OUTPUT DATA REGISTER
-    volatile uint32_t BSRR; //GPIO BIT SET/RESET REGISTER
-    volatile uint32_t LCKR; //GPIO PORT CONFIGURATION LOCK REGISTER
-    volatile uint32_t AFR[2]; //GPIO ALTERNATE FUNCION REGISTER(HIGH-LOW)
-}GPIO;
+typedef enum {
+    GPIO_OK,
+    GPIO_ERROR_SET_MODE,
+	GPIO_ERROR_SET_PUPDR,
+	GPIO_ERROR_WRITE,
+}GpioStatusCode;
+
+/**
+ * @brief Mode that a GPIO pin can have
+ * 
+ */
+typedef enum {
+	GPIO_MODE_INPUT,
+	GPIO_MODE_OUTPUT,
+}GPIOMode;
+
+/**
+ * @brief PULL UP/PULL DOWN enum for GPIO pins
+ * 
+ */
+typedef enum {
+	GPIO_NO_PULL_UP_PULL_DOWN,
+	GPIO_PULL_DOWN,
+	GPIO_PULL_UP,
+}GPIOPupPdown;
+
+/**
+ * @brief States that can be assigned to a GPIO pin
+ * 
+ */
+typedef enum {
+	GPIO_RESET,
+	GPIO_SET,
+}GPIOState;
 
 /**
  * @brief Integer representation of a GPIO pin(for example the pin number of PA5 would be 5, the pin number
@@ -54,32 +77,6 @@ typedef enum {
     PIN_N_14,
     PIN_N_15,
 }GPIO_Pin_Number;
-
-/**
- * @brief Offset of the GPIOA peripheral port from the AHB2 base address.
- * For more info see the reference manual at page 57
- * 
- */
-#define GPIOA_OFFSET        (0x00000000UL)
-
-/**
- * @brief Address of the GPIOA peripheral port. This is used with @ref GPIO structure
- * to access GPIOA registers
- * 
- */
-#define GPIO_BASE_ADDRESS   (AHB2_PERIPHERAL_BASE_ADDRESS + GPIOA_OFFSET)
-
-/**
- * @brief GPIOA structure to access GPIOA registers.
- * 
- */
-#define GPIOA               ((GPIO*)GPIO_BASE_ADDRESS)
-
-/**
- * @brief Bitmask for pin 5 of any GPIO port
- * 
- */
-#define PIN5                (1U<<5)
 
 
 #endif
