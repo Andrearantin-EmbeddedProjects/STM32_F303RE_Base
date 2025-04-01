@@ -9,7 +9,7 @@ typedef struct GPIO GPIO;
  * @brief GPIOA structure to access GPIOA registers.
  * 
  */
-extern const GPIO* GPIOA;
+extern GPIO* GPIOA;
 
 /**
  * @brief Sets a GPIO pin to the specified mode

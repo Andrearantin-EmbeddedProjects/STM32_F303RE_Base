@@ -2,10 +2,10 @@
 #include "gpio_driver/gpio_internal.h"
 
 /*
-    Declare it as const here and extern it in header because i wanted the address to stay private
+    Declare it  here and extern it in header because i wanted the address to stay private
     in gpio_internal.h but i wanted to expose GPIOA to allow customization
 */
-const GPIO* GPIOA = ((GPIO*)GPIO_BASE_ADDRESS);
+GPIO* GPIOA = ((GPIO*)GPIO_BASE_ADDRESS);
 
 void GPIO_Set_Mode(GPIO* GPIO_Port, GPIOPinNumber pinNumber, GPIOMode mode) {
 
