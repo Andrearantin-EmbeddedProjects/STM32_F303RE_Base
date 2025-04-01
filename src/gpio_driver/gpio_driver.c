@@ -48,3 +48,20 @@ void GPIO_Set_PullUp_PullDown(GPIO* GPIO_Port, GPIOPinNumber pinNumber, GPIOPupP
             break;
     }
 }
+
+void GPIO_Toggle_Pin(GPIO* GPIO_Port, GpioPin pin) {
+    GPIO_Port->ODR ^= pin;
+}
+
+uint8_t GPIO_Read_Pin(GPIO* GPIO_Port, GpioPin pin) {
+    return (uint8_t)((GPIO_Port->IDR & pin) != 0);
+}
+
+void GPIO_Write_Pin(GPIO* GPIO_Port, GpioPin pin, GPIOState state) {
+
+    if (state == GPIO_SET) {
+        GPIO_Port->ODR |= pin;
+    } else {
+        GPIO_Port->ODR &= ~pin;
+    }
+}

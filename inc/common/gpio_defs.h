@@ -13,7 +13,6 @@
  */
 
 #include <stdint.h>
-#include "peripheral.h"
 
 /**
  * @brief Mode that a GPIO pin can have
