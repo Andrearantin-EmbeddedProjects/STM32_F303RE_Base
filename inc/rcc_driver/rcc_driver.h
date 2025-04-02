@@ -11,6 +11,14 @@
  */
 void RCC_AHB_Enable(RCCAHBEnable peripheral);
 
+
+ /** @brief Enables a peripheral clock on APB1 bus
+ * 
+ * @param peripheral Peripheral to whom the clock needs to be enabled. 
+ * This is a value of @ref RCCAPB1Enable
+ */
+void RCC_APB1_Enable(RCCAPB1Enable peripheral);
+
 /**
  * @brief Initializes system clock by setting clock source as PLL from HSI to 72MhZ
  * 

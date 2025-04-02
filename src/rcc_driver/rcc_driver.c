@@ -5,6 +5,10 @@ void RCC_AHB_Enable(RCCAHBEnable peripheral) {
     RCC->AHBENR |= peripheral;
 }
 
+void RCC_APB1_Enable(RCCAPB1Enable peripheral) {
+    RCC->APB1ENR |= peripheral;
+}
+
 RCCStatusCode System_Clock_Init() {
     
     //INITIALIZE HSI
@@ -48,6 +52,10 @@ RCCStatusCode System_Clock_Init() {
 
     //DO NOT DIVIDE AHB BUS CLOCK 
     RCC->CFGR &= (uint32_t) ~(0x0F << 4);
-    return RCC_OK;
 
+    //APB1 MAX CLOCK is 36MHZ SO DIVIDE APB1 CLOCK BY 2
+    RCC->CFGR &= (uint32_t) ~(0x7 << 8);
+    RCC->CFGR |= (uint32_t) (0x4 << 8);
+
+    return RCC_OK;
 }
