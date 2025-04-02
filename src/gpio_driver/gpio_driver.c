@@ -1,6 +1,6 @@
 #include "gpio_driver/gpio_driver.h"
 #include "gpio_driver/gpio_internal.h"
-#include "common/uart_defs.h"
+#include "common/uart_interface.h"
 #include <stddef.h>
 
 /*
@@ -46,6 +46,7 @@ void GPIO_Set_Mode(GPIO* GPIO_Port, GPIOPinNumber pinNumber, GPIOMode mode) {
         case GPIO_MODE_ALTERNATE:
             GPIO_Port->MODER |= (2U << pinNumberBits);
             break;
+        case GPIO_MODE_INPUT:
         default:
             break;
     }
