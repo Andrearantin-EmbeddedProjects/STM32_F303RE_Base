@@ -1,5 +1,6 @@
 #include "gpio_driver/gpio_driver.h"
 #include "gpio_driver/gpio_internal.h"
+#include "common/uart_defs.h"
 #include <stddef.h>
 
 /*
@@ -38,8 +39,15 @@ void GPIO_Set_Mode(GPIO* GPIO_Port, GPIOPinNumber pinNumber, GPIOMode mode) {
     */
     GPIO_Port->MODER &= ~(3U << pinNumberBits);
 
-    if(mode == GPIO_MODE_OUTPUT) {
-        GPIO_Port->MODER |= (1U << pinNumberBits);
+    switch(mode) {
+        case GPIO_MODE_OUTPUT:
+            GPIO_Port->MODER |= (1U << pinNumberBits);
+            break;
+        case GPIO_MODE_ALTERNATE:
+            GPIO_Port->MODER |= (2U << pinNumberBits);
+            break;
+        default:
+            break;
     }
 }
 
@@ -82,4 +90,10 @@ void GPIO_Write_Pin(GPIO* GPIO_Port, GpioPin pin, GPIOState state) {
     } else {
         GPIO_Port->ODR &= ~pin;
     }
+}
+
+//TODO DOC
+UARTStatusCode USART2_Init_TX_GPIO(void) {
+    GPIO_Set_Mode(GPIOA, PIN_N_2,GPIO_MODE_ALTERNATE);
+    return UART_OK;
 }
