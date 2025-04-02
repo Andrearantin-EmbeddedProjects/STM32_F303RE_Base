@@ -1,0 +1,6 @@
+.vscode/
+debug/
+output/
+docs/html
+docs/latex
+Doxyfile.bak
