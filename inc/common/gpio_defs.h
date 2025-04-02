@@ -87,5 +87,37 @@ typedef enum {
     PIN_15 = GPIO_PIN(15),
 }GpioPin;
 
+#define GPIO_PIN(n) (1U << (n))
+
+typedef enum {
+    PIN_0 = GPIO_PIN(0),
+    PIN_1 = GPIO_PIN(1),
+    PIN_2 = GPIO_PIN(2),
+    PIN_3 = GPIO_PIN(3),
+    PIN_4 = GPIO_PIN(4),
+    PIN_5 = GPIO_PIN(5),
+    PIN_6 = GPIO_PIN(6),
+    PIN_7 = GPIO_PIN(7),
+    PIN_8 = GPIO_PIN(8),
+    PIN_9 = GPIO_PIN(9),
+    PIN_10 = GPIO_PIN(10),
+    PIN_11 = GPIO_PIN(11),
+    PIN_12 = GPIO_PIN(12),
+    PIN_13 = GPIO_PIN(13),
+    PIN_14 = GPIO_PIN(14),
+    PIN_15 = GPIO_PIN(15),
+}GpioPin;
+
+typedef enum {
+    GPIO_PORT_A = 0,
+    GPIO_PORT_B,
+    GPIO_PORT_C,
+    GPIO_PORT_D,
+    GPIO_PORT_E,
+    GPIO_PORT_F,
+    GPIO_PORT_G,
+    GPIO_PORT_H,
+}GPIOPortEnum;
+
 
 #endif
