@@ -2,6 +2,7 @@
 #define RCC_DEFS_H
 
 #define RCC_AHB_ENABLE(n) (1U << (n))
+#define RCC_APB1_ENABLE(n) (1U << (n))
 
 /**
  * @brief RCC enable register enum. This is used to enable different peripheral clocks
@@ -18,6 +19,14 @@ typedef enum {
     RCC_ENABLE_GPIOG = RCC_AHB_ENABLE(23),
 }RCCAHBEnable;
 
+typedef enum {
+    RCC_ENABLE_USART2 = RCC_APB1_ENABLE(17),
+}RCCAPB1Enable;
+
+/**
+ * @brief Status code returned by RCC operations in the rcc_driver
+ * 
+ */
 typedef enum {
     RCC_OK = 0,
     RCC_ERROR_HSI,
