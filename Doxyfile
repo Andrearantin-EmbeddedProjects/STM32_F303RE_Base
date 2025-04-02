@@ -994,7 +994,9 @@ WARN_LOGFILE           =
 INPUT                  = src \
                          inc \
                          common \
-                         gpio_driver
+                         gpio_driver \
+                         rcc_driver \
+                         uart_driver
 
 # This tag can be used to specify the character encoding of the source files
 # that Doxygen parses. Internally Doxygen uses the UTF-8 encoding. Doxygen uses
