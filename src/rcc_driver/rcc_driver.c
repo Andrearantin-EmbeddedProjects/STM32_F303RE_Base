@@ -1,5 +1,6 @@
 #include "rcc_driver/rcc_driver.h"
 #include "rcc_driver/rcc_internal.h"
+#include "common/uart_interface.h"
 
 void RCC_AHB_Enable(RCCAHBEnable peripheral) {
     RCC->AHBENR |= peripheral;
@@ -58,4 +59,9 @@ RCCStatusCode System_Clock_Init() {
     RCC->CFGR |= (uint32_t) (0x4 << 8);
 
     return RCC_OK;
+}
+
+UARTStatusCode USART2_Init_Clock(void) {
+    RCC_APB1_Enable(RCC_ENABLE_USART2);
+    return UART_OK;
 }
