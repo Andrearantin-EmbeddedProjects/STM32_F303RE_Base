@@ -2,7 +2,10 @@
 #define RCC_DEFS_H
 
 #define RCC_AHB_ENABLE(n) (1U << (n))
+<<<<<<< HEAD
 #define RCC_APB1_ENABLE(n) (1U << (n))
+=======
+>>>>>>> a8aeebf701f786fcbb1a047578e5d4c3f983c5c5
 
 /**
  * @brief RCC enable register enum. This is used to enable different peripheral clocks

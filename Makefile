@@ -34,12 +34,18 @@ main.o:$(SRC_DIR)/main.c | $(OUT_DIR)
 startup.o:$(CFG_DIR)/startup.c
 	$(Compiler) $(CFlags) $(CFG_DIR)/startup.c -o $(OUT_DIR)/startup.o
 
+<<<<<<< HEAD
 	
 uart_driver.o:$(SRC_DIR)/uart_driver/uart_driver.c | $(OUT_DIR)
 	$(Compiler) $(CFlags) $(SRC_DIR)/uart_driver/uart_driver.c -o $(OUT_DIR)/uart_driver.o
 
 
 $(DEBUG_DIR)/firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o $(OUT_DIR)/uart_driver.o | $(DEBUG_DIR)
+=======
+
+
+$(DEBUG_DIR)/firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o | $(DEBUG_DIR)
+>>>>>>> a8aeebf701f786fcbb1a047578e5d4c3f983c5c5
 	$(Compiler) $(LDFlags) -o $@ $^
 	arm-none-eabi-objcopy -O binary $(DEBUG_DIR)/firmware.elf $(DEBUG_DIR)/firmware.bin
 
