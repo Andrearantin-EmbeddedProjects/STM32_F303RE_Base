@@ -1,6 +1,7 @@
 .vscode/
 debug/
 output/
+misc/
 docs/html
 docs/latex
 Doxyfile.bak
