@@ -20,7 +20,17 @@ CFlags = -c -Iinc -mcpu=cortex-m4 -mthumb -std=gnu23  -mfpu=fpv4-sp-d16 -mfloat-
 
 LDFlags= -mcpu=$(Core) -mthumb -nostdlib -T $(CFG_DIR)/linkerScript.ld -Wl,-Map=$(DEBUG_DIR)/firmware.map
 
-all: $(OUT_DIR) main.o startup.o $(DEBUG_DIR)/firmware.elf
+TestScript = gcc -o $(DEBUG_DIR)/tests.elf test/gpio_driver/gpio_test.c test/main_test.c test/unity.c src/gpio_driver/gpio_driver.c \
+             -Iinc -Itest -lgcc -lm
+
+tests_build: | $(DEBUG_DIR)
+	$(TestScript)
+
+tests_run:
+	./debug/tests.elf
+
+
+all: $(OUT_DIR) main.o startup.o gpio_driver.o $(DEBUG_DIR)/firmware.elf
 
 $(OUT_DIR):
 	mkdir $@
@@ -33,6 +43,9 @@ main.o:$(SRC_DIR)/main.c | $(OUT_DIR)
 
 startup.o:$(CFG_DIR)/startup.c
 	$(Compiler) $(CFlags) $(CFG_DIR)/startup.c -o $(OUT_DIR)/startup.o
+
+gpio_driver.o:$(SRC_DIR)/gpio_driver/gpio_driver.c
+	$(Compiler) $(CFlags) $(SRC_DIR)/gpio_driver/gpio_driver.c -o $(OUT_DIR)/gpio_driver.o
 
 
 $(DEBUG_DIR)/firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o  | $(DEBUG_DIR)
@@ -57,7 +70,8 @@ $(DEBUG_DIR)/firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o  | $(DEBUG_DIR
 #	$(Compiler) $(LDFlags) -o $@ $^
 
 clean:
-	rmdir /S /Q $(DOCS_DIR) 2>nul || exit 0
+	rmdir /S /Q $(DOCS_DIR)\html 2>nul || exit 0
+	rmdir /S /Q $(DOCS_DIR)\latex 2>nul || exit 0
 	rmdir /S /Q $(DEBUG_DIR) 2>nul || exit 0
 	rmdir /S /Q $(OUT_DIR) 2>nul || exit 0
 	del /Q *.o *.elf *.map 2>nul || exit 0
