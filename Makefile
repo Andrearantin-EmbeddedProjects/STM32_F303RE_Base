@@ -6,7 +6,7 @@ DOCS_DIR = docs
 
 Compiler=arm-none-eabi-gcc
 Core=cortex-m4
-CFlags = -c -Iinc -mcpu=cortex-m4 -mthumb -std=gnu23  -mfpu=fpv4-sp-d16 -mfloat-abi=hard -g -Os \
+CFlags = -c -Iinc -mcpu=cortex-m4 -mthumb -std=gnu23  -mfpu=fpv4-sp-d16 -mfloat-abi=hard -g -O0 \
 		 -Wall -Wextra -Wpedantic -Werror -Wshadow -Wpointer-arith -Wcast-qual \
 		 -Wcast-align -Wsign-conversion -Wswitch-default -Wswitch-enum \
 		 -Wstrict-prototypes -Wmissing-prototypes -Wconversion -Wredundant-decls \
@@ -20,7 +20,17 @@ CFlags = -c -Iinc -mcpu=cortex-m4 -mthumb -std=gnu23  -mfpu=fpv4-sp-d16 -mfloat-
 
 LDFlags= -mcpu=$(Core) -mthumb -nostdlib -T $(CFG_DIR)/linkerScript.ld -Wl,-Map=$(DEBUG_DIR)/firmware.map
 
-all: $(OUT_DIR) main.o startup.o gpio_driver.o rcc_driver.o uart_driver.o $(DEBUG_DIR)/firmware.elf
+TestScript = gcc -o $(DEBUG_DIR)/tests.elf test/gpio_driver/gpio_test.c test/main_test.c test/unity.c src/gpio_driver/gpio_driver.c \
+             -Iinc -Itest -lgcc -lm
+
+tests_build: | $(DEBUG_DIR)
+	$(TestScript)
+
+tests_run:
+	./debug/tests.elf
+
+
+all: $(OUT_DIR) main.o startup.o gpio_driver.o rcc_driver.o uart_driver.o gpio_driver.o $(DEBUG_DIR)/firmware.elf
 
 $(OUT_DIR):
 	mkdir $@
