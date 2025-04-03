@@ -59,23 +59,6 @@ $(DEBUG_DIR)/firmware.elf: $(OUT_DIR)/main.o $(OUT_DIR)/startup.o $(OUT_DIR)/gpi
 	$(Compiler) $(LDFlags) -o $@ $^
 	arm-none-eabi-objcopy -O binary $(DEBUG_DIR)/firmware.elf $(DEBUG_DIR)/firmware.bin
 
-# all: main.o startup.o gpio_driver.o rcc_driver.o final.elf
-
-# main.o:main.c
-#	$(Compiler) $(CFlags) main.c -o main.o
-
-# startup.o:startup.c
-#	$(Compiler) $(CFlags) startup.c -o startup.o
-
-# gpio_driver.o:gpio_driver.c
-#	$(Compiler) $(CFlags) gpio_driver.c -o gpio_driver.o
-
-# rcc_driver.o:rcc_driver.c
-#	$(Compiler) $(CFlags) rcc_driver.c -o rcc_driver.o
-
-# final.elf: main.o startup.o gpio_driver.o rcc_driver.o
-#	$(Compiler) $(LDFlags) -o $@ $^
-
 clean:
 	rmdir /S /Q $(DOCS_DIR)\html 2>nul || exit 0
 	rmdir /S /Q $(DOCS_DIR)\latex 2>nul || exit 0
@@ -85,3 +68,6 @@ clean:
 	 
 load:
 	openocd -f board/st_nucleo_f3.cfg
+
+size:
+	arm-none-eabi-size $(DEBUG_DIR)/firmware.elf
